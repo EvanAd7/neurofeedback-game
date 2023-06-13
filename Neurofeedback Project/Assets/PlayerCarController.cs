@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerCarController : MonoBehaviour
 {
-    public float speed = 1;
+    public float speed;
 
     // Start is called before the first frame update
     void Start()
@@ -15,7 +15,7 @@ public class PlayerCarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0) & transform.position.x <= 4)
+        if (Input.GetMouseButton(0) & transform.position.x <= 3)
         {
             transform.position += new Vector3(speed, 0, 0) * Time.deltaTime; 
         } 
