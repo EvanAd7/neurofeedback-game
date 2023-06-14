@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrackController : MonoBehaviour
+public class BackgroundController : MonoBehaviour
 {
-    public float moveSpeed = 5;
+    public float moveSpeed;
 
     // Start is called before the first frame update
     void Start()
