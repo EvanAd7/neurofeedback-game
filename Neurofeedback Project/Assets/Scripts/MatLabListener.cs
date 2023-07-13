@@ -9,13 +9,13 @@ using System.Text;
 public class MatLabListener : MonoBehaviour
 {
     TcpListener listener;
-    String msg;
+    String input = "0";
 
     // Start is called before the first frame update
     void Start()
     {
         // establish listener
-        listener = new TcpListener(IPAddress.Parse("100.82.194.74"), 55001);
+        listener = new TcpListener(IPAddress.Parse("100.64.210.98"), 55001);
         listener.Start();
         print("is listening");
     }
@@ -33,8 +33,13 @@ public class MatLabListener : MonoBehaviour
             TcpClient client = listener.AcceptTcpClient();
             NetworkStream ns = client.GetStream();
             StreamReader reader = new StreamReader(ns);
-            msg = reader.ReadToEnd();
-            print(msg);
+            input = reader.ReadToEnd();
+            print(input);
         }
     }
+
+   public int getInput()
+   {
+        return Int32.Parse(input);
+   }
 }

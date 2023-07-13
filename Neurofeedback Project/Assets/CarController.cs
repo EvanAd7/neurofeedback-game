@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CarController : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class CarController : MonoBehaviour
     public float maxSpeed;
 
     public Vector3 centerOfMass;
+
+    public Text speedText;
+
+    public MatLabListener listener;
     
     public WheelCollider wheelFL;
     public WheelCollider wheelFR;
@@ -43,7 +48,7 @@ public class CarController : MonoBehaviour
     void FixedUpdate()
     {
         ApplySteer();
-        if (Input.GetKey(KeyCode.Space))
+        if (listener.getInput() == 1)
         {
             isDriving = true;
             wheelRL.brakeTorque = 0;
@@ -57,6 +62,8 @@ public class CarController : MonoBehaviour
         }
         Drive();
         CheckNodeDistance();
+
+        speedText.text = Mathf.FloorToInt(currentSpeed).ToString() + " km/h";
     }
 
     void ApplySteer()
@@ -70,7 +77,7 @@ public class CarController : MonoBehaviour
 
     void Drive()
     {
-        currentSpeed = 2 * Mathf.PI * wheelFL.radius * wheelFL.rpm * 60 / 1000;
+        currentSpeed = (2 * Mathf.PI * wheelFL.radius * wheelFL.rpm * 60 / 1000) + 0.5f;
 
         if (currentSpeed < maxSpeed && isDriving)
         {
