@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ccf6b4a5102fe34bc99d516b909ac58b315d21149b23f2e41f37e35487bfe19d
-size 255
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu]
+public class IntSO : ScriptableObject
+{
+	[SerializeField]
+	private int _value;
+
+	public int Value
+	{
+		get { return _value; }
+		set { _value = value; }
+	}
+}

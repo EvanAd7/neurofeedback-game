@@ -1,3 +1,17 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a3c1fe49cb68eecea7a2fd2aae96298274a3ba0312005c6d70e24fd94a7a9bc9
-size 463
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class WheelSpinner : MonoBehaviour
+{
+    public WheelCollider targetWheel;
+    private Vector3 wheelPosition = new Vector3();
+    private Quaternion wheelRotation = new Quaternion();
+
+    void Update()
+    {
+        targetWheel.GetWorldPose(out wheelPosition, out wheelRotation);
+        transform.position = wheelPosition;
+        transform.rotation = wheelRotation;
+    }
+}

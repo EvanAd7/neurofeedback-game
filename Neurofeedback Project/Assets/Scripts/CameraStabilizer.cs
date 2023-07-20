@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d5fdd7c66761be31c044e95632d70cda2e88ac59bf2d21883f508049059aac2a
-size 419
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraStabilizer : MonoBehaviour
+{
+    public GameObject car;
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.eulerAngles = new Vector3(car.transform.eulerAngles.x - car.transform.eulerAngles.x, car.transform.eulerAngles.y, car.transform.eulerAngles.z - car.transform.eulerAngles.z);
+    }
+}
