@@ -6,45 +6,61 @@ using UnityEngine.UI;
 
 public class CarController : MonoBehaviour
 {
+    //path finding variables
     [SerializeField] public Transform path;
+    private List<Transform> nodes;
+    private int currentNode = 0;
 
+    //driving variables
     public float maxSteerAngle;
     public float maxMotorTorque;
     public float maxBrakeTorque;
     public float currentSpeed;
     public float maxSpeed;
-
-    public Vector3 centerOfMass;
-    Rigidbody carRigidbody;
     
+    //renderer variables
     public MeshRenderer meshRenderer;
     public Material[] brakeLightsOff;
     public Material[] brakeLightsOn;
 
+    //UI variables
     public Text speedText;
+    public Text timerText;
     float updateCounter = 0;
 
+    //sound variables
     public bool useSounds = false;
     public AudioSource carEngineSound;
     float initialCarEngineSoundPitch;
 
+    //wheel colliders
     public WheelCollider wheelFL;
     public WheelCollider wheelFR;
     public WheelCollider wheelRL;
     public WheelCollider wheelRR;
 
-    public MatLabListener listener;
+    //lap time tracker vars
+    public Transform lapTracker;
+    private float lapTimer = 0;
+    private bool timerStarted = false;
 
+    //misc bools
     private bool isDriving = false;
+    private bool turning = false;
+    public bool turnBraking = true;
 
-    private List<Transform> nodes;
-    private int currentNode = 0;
+    //misc vars
+    public MatLabListener listener;
+    public Vector3 centerOfMass;
+    Rigidbody carRigidbody;
 
     void Start()
     {
+        //lower car's center of mass
         carRigidbody = GetComponent<Rigidbody>();
         centerOfMass = carRigidbody.centerOfMass = centerOfMass;
 
+        //create path
         Transform[] pathTransforms = path.GetComponentsInChildren<Transform>();
         nodes = new List<Transform>();
 
@@ -56,6 +72,7 @@ public class CarController : MonoBehaviour
             }
         }
 
+        //initiate sound loop
         if (carEngineSound != null)
         {
             initialCarEngineSoundPitch = carEngineSound.pitch;
@@ -75,14 +92,35 @@ public class CarController : MonoBehaviour
     }
 
     void FixedUpdate()
-    {
+    {   
         ApplySteer();
+        
+        //figure out if the car is turning
+        if (Math.Abs(wheelFL.steerAngle) > 5f && turnBraking)
+        {
+            turning = true;
+        }
+        else
+        {
+            turning = false;
+        }
+
+        //drive upon input
         if (Input.GetKey(KeyCode.Space))
         //if (listener.getInput() == 1)
         {
             isDriving = true;
-            wheelRL.brakeTorque = 0;
-            wheelRR.brakeTorque = 0;
+            if (turning && currentSpeed > 40)
+            {
+                wheelRL.brakeTorque = 500;
+                wheelRR.brakeTorque = 500;
+                print("turning");
+            } 
+            else
+            {
+                wheelRL.brakeTorque = 0;
+                wheelRR.brakeTorque = 0;
+            }
             meshRenderer.materials = brakeLightsOff;
         } 
         else
@@ -94,10 +132,24 @@ public class CarController : MonoBehaviour
         }
         Drive();
         CheckNodeDistance();
+        CarSounds();
+        DisplayTime(lapTimer);
+
+        //restart lap timer
+        if (Vector3.Distance(transform.position, lapTracker.position) < 5f)
+        {
+            lapTimer = 0;
+            timerStarted = true;
+            print("start lap");
+        }
+
+        if (timerStarted)
+        {
+            lapTimer += Time.deltaTime;
+        }
         updateCounter += Time.deltaTime;
 
-        CarSounds();
-
+        //update the speedometer
         if (updateCounter > 1)
         {
             speedText.text = Mathf.FloorToInt(currentSpeed).ToString() + " mph";
@@ -143,6 +195,13 @@ public class CarController : MonoBehaviour
                 currentNode++;
             }
         }
+    }
+
+    void DisplayTime(float timeToDisplay)
+    {
+        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
+        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+        timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
     }
 
     void CarSounds()
