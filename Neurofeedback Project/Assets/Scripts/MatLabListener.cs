@@ -16,7 +16,7 @@ public class MatLabListener : MonoBehaviour
     void Start()
     {
         // establish listener
-        listener = new TcpListener(IPAddress.Parse("100.82.196.231"), 55001);
+        listener = new TcpListener(IPAddress.Parse("192.168.7.132"), 55001);
         listener.Start();
         print("is listening");
     }

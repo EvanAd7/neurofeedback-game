@@ -25,7 +25,8 @@ public class CarController : MonoBehaviour
 
     //UI variables
     public Text speedText;
-    public Text timerText;
+    public Text currentLapText;
+    public Text bestLapText;
     float updateCounter = 0;
 
     //sound variables
@@ -40,9 +41,12 @@ public class CarController : MonoBehaviour
     public WheelCollider wheelRR;
 
     //lap time tracker vars
+    public Transform startLine;
     public Transform lapTracker;
+    private bool didLap = true;
     private float lapTimer = 0;
-    private bool timerStarted = false;
+    private int lapsDone = -1;
+    private float bestLapTime = 10000;
 
     //misc bools
     private bool isDriving = false;
@@ -133,17 +137,30 @@ public class CarController : MonoBehaviour
         Drive();
         CheckNodeDistance();
         CarSounds();
-        DisplayTime(lapTimer);
+        currentLapText.text = "Current Lap: " + string.Format("{0:0}:{1:00}", Mathf.FloorToInt(lapTimer / 60), Mathf.FloorToInt(lapTimer % 60));
 
         //restart lap timer
-        if (Vector3.Distance(transform.position, lapTracker.position) < 5f)
+        if (Vector3.Distance(transform.position, startLine.position) < 5f && didLap)
         {
+            lapsDone++;
+
+            if (lapTimer < bestLapTime && lapsDone > 0)
+            {
+                bestLapTime = lapTimer;
+                bestLapText.text = "Best Lap: " + string.Format("{0:0}:{1:00}", Mathf.FloorToInt(bestLapTime / 60), Mathf.FloorToInt(bestLapTime % 60));
+            }
+
             lapTimer = 0;
-            timerStarted = true;
-            print("start lap");
+            didLap = false;
         }
 
-        if (timerStarted)
+        //make sure the player completes a lap
+        if (Vector3.Distance(transform.position, lapTracker.position) < 5f)
+        {
+            didLap = true;
+        }
+
+        if (lapsDone >= 0)
         {
             lapTimer += Time.deltaTime;
         }
@@ -195,13 +212,6 @@ public class CarController : MonoBehaviour
                 currentNode++;
             }
         }
-    }
-
-    void DisplayTime(float timeToDisplay)
-    {
-        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
-        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-        timerText.text = string.Format("{0:0}:{1:00}", minutes, seconds);
     }
 
     void CarSounds()
