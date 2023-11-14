@@ -110,8 +110,8 @@ public class CarController : MonoBehaviour
         }
 
         //drive upon input
-        if (Input.GetKey(KeyCode.Space))
-        //if (listener.getInput() == 1)
+        //if (Input.GetKey(KeyCode.Space))
+        if (listener.getInput() == 1)
         {
             isDriving = true;
             if (turning && currentSpeed > 40)

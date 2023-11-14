@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1817236227}
-  m_IndirectSpecularColor: {r: 0.4514001, g: 0.50050044, b: 0.57022846, a: 1}
+  m_IndirectSpecularColor: {r: 0.45139974, g: 0.5005002, b: 0.5702279, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -518,7 +518,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -650.9, y: 436}
+  m_AnchoredPosition: {x: -634, y: 426}
   m_SizeDelta: {x: 600, y: 196.6212}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &487755446
@@ -1717,10 +1717,10 @@ MonoBehaviour:
   maxSpeed: 100
   meshRenderer: {fileID: 1643408283}
   brakeLightsOff:
-  - {fileID: 2100000, guid: c4c2ee3e832cffd48bb9d156c2b21376, type: 2}
+  - {fileID: 2100000, guid: 07f44fe3e9c462146a7769b976c50ec4, type: 2}
   - {fileID: 2100000, guid: 792fa418de0281e4bab622f9a60c88b2, type: 2}
   brakeLightsOn:
-  - {fileID: 2100000, guid: c4c2ee3e832cffd48bb9d156c2b21376, type: 2}
+  - {fileID: 2100000, guid: 07f44fe3e9c462146a7769b976c50ec4, type: 2}
   - {fileID: 2100000, guid: ab035d7682921704a9015ac353311d57, type: 2}
   speedText: {fileID: 2030344260}
   currentLapText: {fileID: 487755446}
@@ -1771,7 +1771,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1573579331}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 21, y: -0.004, z: -27.97}
+  m_LocalPosition: {x: -3.98, y: -0.004, z: -27.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1892,7 +1892,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c4c2ee3e832cffd48bb9d156c2b21376, type: 2}
+  - {fileID: 2100000, guid: 07f44fe3e9c462146a7769b976c50ec4, type: 2}
   - {fileID: 2100000, guid: ab035d7682921704a9015ac353311d57, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -2639,7 +2639,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 691, y: 438}
+  m_AnchoredPosition: {x: 682, y: 431}
   m_SizeDelta: {x: 522.145, y: 196.6212}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2030344260
@@ -2719,7 +2719,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -651, y: 367}
+  m_AnchoredPosition: {x: -634, y: 359}
   m_SizeDelta: {x: 600, y: 196.6212}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2042690319
